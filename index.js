@@ -1,4 +1,4 @@
-const Commando  = require('discord.js-commando');
+const Commando = require('discord.js-commando');
 const path = require('path');
 const dotenv = require('dotenv');
 dotenv.config();
@@ -34,10 +34,7 @@ client.once('ready', () => {
 client.on('message', async message => {
 	// https://discord.js.org/#/docs/main/v12/class/Message?scrollTo=fetch
 	if(message.author.bot | message.guild === null) return;
-	XPSYS(message, client)
-	client.users.fetch("").then(user => {
-		user.username
-	})
+	await XPSYS(message, client)
 })
 
 client
@@ -45,36 +42,36 @@ client
 	.on('error', console.error)
 	.on('debug', console.log)
 	.on('disconnect', () => { console.warn('Disconnected!'); })
-	.on('reconnecting', () => { console.warn('Reconnecting...'); });
-	// .on('commandError', (cmd, err) => {
-	// 	if(err instanceof commando.FriendlyError) return;
-	// 	console.error(`Error in command ${cmd.groupID}:${cmd.memberName}`, err);
-	// })
-	// .on('commandBlocked', (msg, reason) => {
-	// 	console.log(oneLine`
-	// 		Command ${msg.command ? `${msg.command.groupID}:${msg.command.memberName}` : ''}
-	// 		blocked; ${reason}
-	// 	`);
-	// })
-	// .on('commandPrefixChange', (guild, prefix) => {
-	// 	console.log(oneLine`
-	// 		Prefix ${prefix === '' ? 'removed' : `changed to ${prefix || 'the default'}`}
-	// 		${guild ? `in guild ${guild.name} (${guild.id})` : 'globally'}.
-	// 	`);
-	// })
-	// .on('commandStatusChange', (guild, command, enabled) => {
-	// 	console.log(oneLine`
-	// 		Command ${command.groupID}:${command.memberName}
-	// 		${enabled ? 'enabled' : 'disabled'}
-	// 		${guild ? `in guild ${guild.name} (${guild.id})` : 'globally'}.
-	// 	`);
-	// })
-	// .on('groupStatusChange', (guild, group, enabled) => {
-	// 	console.log(oneLine`
-	// 		Group ${group.id}
-	// 		${enabled ? 'enabled' : 'disabled'}
-	// 		${guild ? `in guild ${guild.name} (${guild.id})` : 'globally'}.
-	// 	`);
-	// });
+	.on('reconnecting', () => { console.warn('Reconnecting...'); })
+	.on('commandError', (cmd, err) => {
+		if(err instanceof commando.FriendlyError) return;
+		console.error(`Error in command ${cmd.groupID}:${cmd.memberName}`, err);
+	})
+	.on('commandBlocked', (msg, reason) => {
+		console.log(oneLine`
+			Command ${msg.command ? `${msg.command.groupID}:${msg.command.memberName}` : ''}
+			blocked; ${reason}
+		`);
+	})
+	.on('commandPrefixChange', (guild, prefix) => {
+		console.log(oneLine`
+			Prefix ${prefix === '' ? 'removed' : `changed to ${prefix || 'the default'}`}
+			${guild ? `in guild ${guild.name} (${guild.id})` : 'globally'}.
+		`);
+	})
+	.on('commandStatusChange', (guild, command, enabled) => {
+		console.log(oneLine`
+			Command ${command.groupID}:${command.memberName}
+			${enabled ? 'enabled' : 'disabled'}
+			${guild ? `in guild ${guild.name} (${guild.id})` : 'globally'}.
+		`);
+	})
+	.on('groupStatusChange', (guild, group, enabled) => {
+		console.log(oneLine`
+			Group ${group.id}
+			${enabled ? 'enabled' : 'disabled'}
+			${guild ? `in guild ${guild.name} (${guild.id})` : 'globally'}.
+		`);
+	});
 
 client.login(process.env.TOKEN);

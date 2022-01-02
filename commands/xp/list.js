@@ -1,4 +1,4 @@
-const { Command } = require('discord.js-commando');
+const {Command, Client} = require('discord.js-commando');
 const fs = require('fs').promises;
 const path = require('path');
 
@@ -15,9 +15,11 @@ module.exports = class ListCommand extends Command {
     
     async run(message) {
 		let xpFile = await fs.readFile(path.join(__dirname, 'userxpUpdated.json'), 'utf8');
+        const client = new Client();
         let xpData = JSON.parse(xpFile);
         let guildId = message.guild.id
-
+        console.log("client :")
+        console.log(client)
         let tempHash=[];
         let arr = Object.keys(xpData[guildId]);
         for(let i=2;i<arr.length;i++){
@@ -27,7 +29,7 @@ module.exports = class ListCommand extends Command {
         let tempString="";
         for(let i=0; i < tempHash.length; i++){
             let num = Math.floor(tempHash[i][0]/786);
-            tempString=tempString+`\n${i+1}. ${xpData[guildId][tempHash[i][1]]['authorTag']} (level ${num})`;	
+            tempString=tempString+`\n${i+1}. ${xpData[guildId][tempHash[i][1]]['authorTag']} (level ${num})`;
         }
         return message.say(tempString)
 	}
