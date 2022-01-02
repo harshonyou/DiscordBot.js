@@ -23,7 +23,7 @@ client.once('ready', () => {
 	console.log(`Logged in as ${client.user.tag}! (${client.user.id})`);
 	
 	// https://discord.js.org/#/docs/main/v12/class/ClientUser
-	client.user.setPresence({status: 'idle', activity: {name: 'hey', type: 'WATCHING', url: 'https://harsh.sh/'}});
+	client.user.setPresence({status: 'idle', activity: {name: 'https://harsh.sh/', type: 'STREAMING', url: 'https://harsh.sh/'}});
 
 	// https://discord.js.org/#/docs/main/v12/class/User?scrollTo=fetch
 	client.users.fetch("182749079024041985").then((user)=>{
